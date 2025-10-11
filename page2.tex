@@ -1,0 +1,89 @@
+% Requires in preamble:
+% \usepackage{graphicx}
+% \usepackage[absolute,overlay]{textpos}
+% \usepackage{background}
+% (You already have them in main.tex)
+
+\backgroundsetup{
+  scale=1,
+  color=black,
+  opacity=1,
+  angle=0,
+  contents={\includegraphics[width=19cm,height=28cm]{image pak/background.png}}
+}
+
+\begin{titlepage}
+  \thispagestyle{empty}
+  \BgThispage
+
+  % Top-left logo (UTM)
+  \begin{textblock}{1.7}[0.5,0.5](0.1,0.5)
+    \includegraphics[width=\linewidth]{image pak/utm.png}%
+  \end{textblock}
+
+  % Top-right logo (ENIT)
+  \begin{textblock}{2}[0.5,0.5](11,0.5)
+    \includegraphics[width=\linewidth]{image pak/enit.png}%
+  \end{textblock}
+
+  % --- Title block (single center) ---
+  \vspace*{0\baselineskip}
+  \begin{center}
+    \begin{minipage}[t]{0.83\linewidth}\centering
+      {\tiny
+        \parindent=0pt
+        \textbf{République tunisienne }\\[0.1cm]
+        \textbf{ Ministére de l'Enseignement Supérieur et Recherche Scientifiaue. }\\[0.1cm]
+        \textbf{Université tunis El Manar}\\[0.1cm]
+        \textbf{Ecole Natioale d'Ingenieur de Tunis }
+      }
+    \end{minipage}
+
+    \vspace{1.2cm}
+
+    {\Large \textbf{Département GE }}\\[0.5cm]
+    {\LARGE \textbf{BE Robotique.}}
+
+    \bigskip\bigskip
+
+    \setlength{\fboxrule}{0.6pt}
+    \fbox{%
+      \parbox{0.95\textwidth}{%
+        \vspace{0.6\baselineskip}
+        \centering {\huge\bfseries  Thor Robot Arm  }
+        \vspace{0.6\baselineskip}
+      }%
+    }
+
+    \bigskip
+
+    {\large \emph{Realisé par :}}\\[0.25cm]
+    { Dridi Wajdi }\\[0.25cm]
+    {Ghomrasni Yassin}\\[0.25cm]
+    {Khalil Rezgui}\\[0.25cm]
+    { Mayekhav Ahmed}\\[0.25cm]
+
+    \bigskip
+
+    {\large \emph{Classe:}}\\[0.25cm]
+    {\large 3AGE1}
+
+    \bigskip
+
+    {\large \emph{Encadré par:}}\\[0.25cm]
+    {\large Mme.Nahla Khraief.}\\[0.25cm]
+   {\large Mme.Zohra  Kardous.}\\[0.25cm]
+   {\large Mme.Afef Hfaiedh}\\[0.25cm]
+
+
+
+    \bigskip
+
+    % Supervisor (or company) photo without a float:
+    
+
+    \vfill
+    {\small Année Universitaire : 2024/2025}
+  \end{center}
+
+\end{titlepage}

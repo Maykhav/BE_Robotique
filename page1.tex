@@ -1,0 +1,220 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{setspace}
+\usepackage[english]{babel} % Définit la langue en anglais
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{textpos}
+\usepackage{dirtytalk}
+\usepackage{fancyhdr}
+\usepackage[nottoc]{tocbibind}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage[pages=some]{background}
+\usepackage{mathrsfs}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{caption}
+%\captionsetup[table]{position=bottom}
+\usepackage{siunitx}
+\usepackage{titlesec}
+\numberwithin{equation}{section}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{hyperref}  % Pour liens cliquables
+\usepackage{tocloft}      % Pour personnaliser la table des matières
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{biblatex}
+\addbibresource{references.bib}
+
+
+
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  tabsize=4,
+  breaklines=true,
+  caption=RTC Initialization (Set Time),
+  frame=single
+}
+
+\sisetup{per-mode=symbol,detect-all}
+\setlist[itemize]{topsep=2pt,itemsep=2pt,parsep=0pt}
+\setlist[enumerate]{topsep=2pt,itemsep=2pt,parsep=0pt}
+
+% ====== Helpful macros ======
+\newcommand{\vlogic}{\SI{3.3}{V}}
+\newcommand{\vfield}{\SI{24}{V}}
+\newcommand{\imaxout}{\SI{500}{mA}}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  tabsize=4,
+  breaklines=true,
+  caption=RTC Initialization (Set Time),
+  frame=single
+}
+
+% Configuration pour la numérotation des pages en bas
+\fancyhf{} % Efface les en-têtes et pieds de page par défaut
+\fancyfoot[C]{\thepage} % Place le numéro de page au centre du pied de page
+\pagestyle{fancy} % Applique le style fancy pour tout le document
+% Pour changer le titre de la table des matières
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}{Table of Contents}%
+  \renewcommand{\listfigurename}{List of Figures}%
+}
+
+
+%-------------------------------
+
+\clearpage
+
+\newpage
+%----------------------------------------
+\setcounter{secnumdepth}{3}
+
+\setcounter{tocdepth}{3}
+
+
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+\begin{document}
+
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Le projet \textbf{Thor-ROS} consiste en la simulation et le contrôle du bras robotique \textbf{Thor Arm} sous ROS2 et Gazebo.  
+L'objectif principal est de réaliser des opérations de type \textit{pick and place} et de tester le robot dans un environnement simulé avant de le contrôler sur le robot réel.  
+
+---
+
+\section{Structure générale du projet}
+
+Le projet est organisé en plusieurs packages ROS2. Le workspace se trouve à :
+
+\begin{lstlisting}[language=bash]
+~/thor_arm_ws/src/Thor-ROS/ws_thor/src/
+\end{lstlisting}
+
+Les principaux packages sont :
+
+\begin{itemize}
+    \item \textbf{thor\_bringup} : contient les fichiers de lancement pour la simulation et la communication avec le robot.
+    \item \textbf{thor\_moveit} : configuration MoveIt pour le contrôle du bras, planification de trajectoire et GUI RViz.
+    \item \textbf{thor\_urdf} : description du robot en URDF, incluant tous les liens et joints.
+    \item \textbf{thor\_arm\_description} : modèle visuel et collision du bras (textures, meshes).
+    \item \textbf{thor\_controller} : configuration des contrôleurs de mouvement ROS2 pour les joints.
+    \item \textbf{thor\_status\_publisher} : publie l'état du robot (position, joints, capteurs) sur ROS2.
+    \item \textbf{thor\_server} : serveur ROS2 pour recevoir et exécuter les commandes.
+    \item \textbf{thor\_msgs} : messages ROS2 personnalisés pour la communication interne.
+    \item \textbf{thor\_joystick} : interface pour contrôler le bras via un joystick.
+\end{itemize}
+
+
+\section{Description des fichiers importants}
+
+\subsection{thor\_bringup/launch}
+\begin{itemize}
+    \item \textbf{real\_robot.launch.py} : lancement du robot physique réel.
+    \item \textbf{simulated\_robot.launch.py} : lancement de la simulation Gazebo avec tous les nœuds nécessaires.
+    \item \textbf{rosbridge.launch.py} : lance le serveur ROSBridge pour la communication avec des interfaces web.
+\end{itemize}
+
+\subsection{thor\_urdf}
+\begin{itemize}
+    \item Contient le fichier \textbf{thor.urdf} décrivant la structure mécanique du bras (liens et articulations).
+    \item Définit les limites des joints, les inerties et les collisions.
+\end{itemize}
+
+\subsection{thor\_moveit/config}
+\begin{itemize}
+    \item \textbf{thor.srdf} : configuration SRDF pour MoveIt, définissant les groupes de joints et les poses prédéfinies.
+    \item Configurations des planificateurs de trajectoire, contrôleurs et paramètres MoveIt.
+\end{itemize}
+
+\subsection{thor\_controller/config}
+\begin{itemize}
+    \item Définit les contrôleurs ROS2 pour les joints : position, vitesse et effort.
+\end{itemize}
+
+\subsection{thor\_msgs/msg}
+\begin{itemize}
+    \item Contient des messages ROS2 personnalisés pour la communication interne.
+\end{itemize}
+
+\subsection{thor\_status\_publisher}
+\begin{itemize}
+    \item Publie périodiquement les positions et états du robot sur les topics ROS2.
+\end{itemize}
+
+\subsection{thor\_joystick}
+\begin{itemize}
+    \item Permet le contrôle manuel du bras via un joystick.
+\end{itemize}
+
+---
+
+\section{Comment comprendre et utiliser le projet}
+
+\begin{enumerate}
+    \item \textbf{Simulation Gazebo} : lancer \texttt{simulated\_robot.launch.py} depuis \texttt{thor\_bringup/launch}.
+    \item \textbf{Contrôle du bras} : utiliser MoveIt avec RViz en lançant \texttt{thor\_moveit.launch.py}.
+    \item \textbf{Contrôleurs} : configurés dans \texttt{thor\_controller/config} pour gérer le mouvement réel ou simulé.
+    \item \textbf{Messages et états} : consultables via les topics ROS2 publiés par \texttt{thor\_status\_publisher} et \texttt{thor\_msgs}.
+    \item \textbf{Joystick} : interface manuelle de contrôle si nécessaire.
+\end{enumerate}
+
+---
+
+\section{Résumé}
+Le projet Thor-ROS est structuré de manière modulaire pour séparer :
+\begin{itemize}
+    \item La simulation et le lancement (\texttt{thor\_bringup})
+    \item La description mécanique (\texttt{thor\_urdf}, \texttt{thor\_arm\_description})
+    \item Le contrôle et planification (\texttt{thor\_controller}, \texttt{thor\_moveit})
+    \item Les messages et états (\texttt{thor\_msgs}, \texttt{thor\_status\_publisher})
+    \item Les interfaces manuelles (\texttt{thor\_joystick}, \texttt{rosbridge\_server})
+\end{itemize}
+
+Cette structure permet de tester et contrôler le Thor Arm dans la simulation avant de le connecter au robot réel.
+
+\end{document}
