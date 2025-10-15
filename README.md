@@ -1,5 +1,5 @@
 # BE_Robotique
-Ceci est un travail réalisé par: 
+Ce projet est réalisé par: 
 Ahmed Mayekhav, 
 Khalil Rezgui, 
 Mohamed Yassin Ghomrasni et 
