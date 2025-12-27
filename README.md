@@ -10,8 +10,8 @@ Mohamed Yassin Ghomrasni
 Wajdi Dridi.
 
 
-Robotic Arm Control using ROS 2 (Humble), Raspberry Pi & Arduino 📌 Project Overview
-
+**Robotic Arm Control using ROS 2 (Humble), Raspberry Pi & Arduino 📌 Project Overview
+**
 This project implements the control of a 4-DOF robotic arm using a Raspberry Pi for high-level control and an Arduino for low-level servo actuation.
 
 Raspberry Pi: trajectory planning, vision input processing, ROS 2 nodes execution
